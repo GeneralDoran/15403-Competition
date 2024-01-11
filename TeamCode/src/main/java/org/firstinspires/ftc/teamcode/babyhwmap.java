@@ -21,6 +21,7 @@ public class babyhwmap extends HardwareMapUtil {
     public DcMotor Intake = null;
     public CRServo armServo = null;
     public Servo planeServo = null;
+    public Servo pixelServo = null;
 
 
     public void init(HardwareMap ahwMap){
@@ -33,7 +34,8 @@ public class babyhwmap extends HardwareMapUtil {
         armMotorTwo = HardwareInitMotor("arm_2", true);
         Intake = HardwareInitMotor("intake", true);
         armServo = hwMap.get(CRServo.class, "servo");
-        planeServo = hwMap.get(Servo.class, "intakeServo");
+        planeServo = hwMap.get(Servo.class, "planeServo");
+        pixelServo = hwMap.get(Servo.class, "pixelServo");
 
 
         armServo.setDirection(DcMotorSimple.Direction.FORWARD);

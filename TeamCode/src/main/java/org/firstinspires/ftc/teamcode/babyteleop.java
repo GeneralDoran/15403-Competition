@@ -44,9 +44,9 @@ public class babyteleop extends Auto_Util {
 
             //Drive
 
-            fwdBackPower = -gamepad1.left_stick_y * slowamount;
-            strafePower = -gamepad1.left_stick_x * slowamount;
-            turnPower = -gamepad1.right_stick_x * slowamount;
+            fwdBackPower = gamepad1.left_stick_y * slowamount;
+            strafePower = gamepad1.left_stick_x * slowamount;
+            turnPower = gamepad1.right_stick_x * slowamount;
 
             lfPower = (fwdBackPower - turnPower - strafePower);
             rfPower = (fwdBackPower + turnPower + strafePower);
@@ -70,7 +70,7 @@ public class babyteleop extends Auto_Util {
                 slowamount = 1;}
 
             if(gamepad2.right_bumper){
-                robot.armMotorOne.setPower(gamepad2.right_stick_y*.4 + .15);
+                robot.armMotorOne.setPower(gamepad2.right_stick_y*.4 - .15);
             } else{
                 robot.armMotorOne.setPower(gamepad2.right_stick_y*.4);
             }
@@ -82,8 +82,12 @@ public class babyteleop extends Auto_Util {
                 robot.armMotorTwo.setPower(gamepad2.left_stick_y*.7);
             }
 
-            if(gamepad1.a){
-                encoderLift(LIFT_SPEED, 6, 10);
+
+            if(gamepad2.dpad_up){
+                robot.pixelServo.setPosition(1);
+            } else{
+                robot.pixelServo.setPosition(0);
+
             }
 
             if(gamepad1.a && gamepad1.b){
