@@ -71,6 +71,8 @@ public class babyteleop extends Auto_Util {
 
             if(gamepad2.right_bumper){
                 robot.armMotorOne.setPower(gamepad2.right_stick_y*.4 - .15);
+            } else if(gamepad1.a){
+                robot.armMotorOne.setPower(gamepad2.right_stick_y);
             } else{
                 robot.armMotorOne.setPower(gamepad2.right_stick_y*.4);
             }
