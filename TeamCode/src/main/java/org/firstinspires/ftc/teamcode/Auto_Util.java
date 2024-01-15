@@ -74,8 +74,8 @@ public abstract class Auto_Util extends LinearOpMode {
     static final double DRIVE_GEAR_REDUCTION = 0.75;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double ENCODER_COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.14159);
-    static final double DRIVE_SPEED = 0.01;
-    static final double STRAFE_SPEED = 0.01;
+    static final double DRIVE_SPEED = 0.3;
+    static final double STRAFE_SPEED = 0.3;
     static final double LIFT_SPEED = 0.7;
 
     //Vision Colors
@@ -103,7 +103,7 @@ public abstract class Auto_Util extends LinearOpMode {
     //odometry encoders
     DcMotor verticalLeft, verticalRight, horizontal;
     //servos
-    // Servo servo1;
+    Servo pixelServo;
     CRServo intakeServo, crservo2;
     ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
@@ -111,7 +111,7 @@ public abstract class Auto_Util extends LinearOpMode {
     //Hardware Map Names for drive motors and odometry wheels. This may need to be changed between years if the config changes
     String rfName = "rfD", rbName = "rbD", lfName = "lfD", lbName = "lbD";
     String util1name = "arm_1", util2name = "arm_2", util3name = "intake";//, util4name = "wobbleG";
-    String /*servo1name = "wobbleS",*/ intakeServoname = "intake"/*, crservo2name = "pastaS2"*/;
+    String /*servo1name = "wobbleS",*/ pixelServoname = "pixelServo"/*, crservo2name = "pastaS2"*/;
     String verticalLeftEncoderName = lbName, verticalRightEncoderName = lfName, horizontalEncoderName = rfName;
 
     //Variables for Camera
@@ -198,8 +198,8 @@ public abstract class Auto_Util extends LinearOpMode {
      */
     public void initAuto() {
         initDriveHardwareMap(rfName, rbName, lfName, lbName);
-        initUtilHardwareMap(util1name, util2name);
-        initServoHardwareMap(intakeServoname);
+        initUtilHardwareMap(util1name, util2name, util3name);
+        initServoHardwareMap(pixelServoname);
         //IMU Stuff, sets up parameters and reports accelerations to logcat log
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -257,28 +257,30 @@ public abstract class Auto_Util extends LinearOpMode {
         leftbackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    private void initUtilHardwareMap(String slide1, String slide2) {
-        //slideMotor = hardwareMap.dcMotor.get(slide1);
-        //slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //slideMotor2 = hardwareMap.dcMotor.get(slide2);
-        //slideMotor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    private void initUtilHardwareMap(String utilmotor1, String utilmotor2, String utilmotor3) {
+        armMotor = hardwareMap.dcMotor.get(utilmotor1);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        jointMotor = hardwareMap.dcMotor.get(utilmotor2);
+        jointMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        intakeMotor = hardwareMap.dcMotor.get(util3name);
+        intakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         /*
-        utilmotor3 = hardwareMap.dcMotor.get(util3name);
-        utilmotor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         utilmotor4 = hardwareMap.dcMotor.get(util4name);
         utilmotor4.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
          */
-        // slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //slideMotor.setDirection(DcMotor.Direction.FORWARD);
-        //slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //slideMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //slideMotor2.setDirection(DcMotor.Direction.FORWARD);
-        //slideMotor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setDirection(DcMotor.Direction.FORWARD);
+        armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        jointMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        jointMotor.setDirection(DcMotor.Direction.FORWARD);
+        jointMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setDirection(DcMotor.Direction.FORWARD);
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         /*
-        utilmotor3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        utilmotor3.setDirection(DcMotor.Direction.FORWARD);
-        utilmotor3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         utilmotor4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         utilmotor4.setDirection(DcMotor.Direction.FORWARD);
         utilmotor4.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -287,9 +289,9 @@ public abstract class Auto_Util extends LinearOpMode {
     }
 
     //THIS ONE IS YEAR SPECIFIC. WE MAY HAVE MORE OR LESS SERVOS AND CONTINUOUS ROTATION SERVOS THAN THIS
-    private void initServoHardwareMap(String crservo1name) {
-        //servo1 = hardwareMap.servo.get(servo1name);
-        //servo1.setPosition(0);
+    private void initServoHardwareMap(String servo1name) {
+        pixelServo = hardwareMap.servo.get(servo1name);
+        pixelServo.setPosition(0);
         //intakeServo = hardwareMap.crservo.get(crservo1name);
         //intakeServo.setDirection(CRServo.Direction.FORWARD);
         //intakeServo.setPower(0);
@@ -1148,6 +1150,13 @@ public abstract class Auto_Util extends LinearOpMode {
     ___________________________________________________________________________________________________________________________________
      */
 
+    public void place(double angle) {
+        pixelServo.setPosition(angle);
+    }
+
+    public void reload() {
+        pixelServo.setPosition(0);
+    }
     /*
     ___________________________________________________________________________________________________________________________________
     -
@@ -1252,7 +1261,7 @@ public abstract class Auto_Util extends LinearOpMode {
     public void intakeWork(double time){
         runtime.reset();
         while(runtime.seconds() < time){
-            intakeMotor.setPower(0.5);
+            intakeMotor.setPower(-0.3);
         }
         intakeMotor.setPower(0);
     }
@@ -1340,7 +1349,7 @@ public abstract class Auto_Util extends LinearOpMode {
 
 
         /*
-    ___________________________________________________________________________________________________________________________________
+
     -
     -COLOR ALIGNMENT TEST PROGRAM
     -

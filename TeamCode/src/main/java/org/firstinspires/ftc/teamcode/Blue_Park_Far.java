@@ -15,6 +15,5 @@ public class Blue_Park_Far extends Auto_Util {
         encoderDrive(DRIVE_SPEED, -32.5, -32.5, 10, 0);
         encoderStrafe(STRAFE_SPEED, 56, 56, 10 ,0);
         encoderDrive(DRIVE_SPEED, 1, 1, 10, 0);
-
     }
 }
