@@ -3,11 +3,15 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name="Far Place Red",group="Encoder")
-public class Red_Place_Far extends Auto_Util {
+public class Red_Place_Far extends ColorDetectionPractice {
     public void runOpMode() throws InterruptedException {
         initAuto();
-
+        initOpenCV();
         waitForStart();
+        telemetry.addLine("Started");
+        loopOpenCV();
+        String loc = getLocation();
+
         if (false) { // center
             encoderDrive(DRIVE_SPEED,-17,-17,10,0);
             intakeWork(1);
@@ -43,21 +47,22 @@ public class Red_Place_Far extends Auto_Util {
             encoderDrive(DRIVE_SPEED,-10,-10,10,0);
 
         } else if (true) { //left
-            encoderDrive(DRIVE_SPEED,-17,-17,10,0);
-            encoderStrafe(STRAFE_SPEED,13,13,10,0);
-            intakeWork(5);
-            encoderStrafe(STRAFE_SPEED,-12,-12,10,0);
-            encoderDrive(DRIVE_SPEED,-16,-16,10,0);
-            encoderStrafe(STRAFE_SPEED,-12.3,12.3,10,0);
-            encoderDrive(DRIVE_SPEED,59,59,10,0);
-            encoderStrafe(STRAFE_SPEED,-17,-17,10,0);
+            encoderDrive(DRIVE_SPEED,-11,-11,10,0);
+            encoderStrafe(STRAFE_SPEED,6,6,10,0);
+            intakeWork(1);
+            encoderDrive(DRIVE_SPEED,2,2,10,0);
+            encoderStrafe(STRAFE_SPEED,-9,-9,10,0);
+            encoderDrive(DRIVE_SPEED,-25,-25,10,0);
+            encoderStrafe(STRAFE_SPEED,13.4,-13.4,10,0);
+            encoderDrive(DRIVE_SPEED,-54,-54,10,0);
+            encoderStrafe(STRAFE_SPEED,-12,-15,10,0);
             encoderDrive(0.1,-5,-5,10,0);
             place(50);
             sleep(1000);
             reload();
             encoderDrive(DRIVE_SPEED,5,5,10,0);
-            encoderStrafe(STRAFE_SPEED,20,20,10,0);
-            encoderDrive(DRIVE_SPEED,-10,-10,10,0);
+            encoderStrafe(STRAFE_SPEED,11,11,10,0);
+            encoderDrive(DRIVE_SPEED,-5,-5,10,0);
         }
 
     }
