@@ -59,11 +59,50 @@ public class ColorDetectionPractice extends Auto_Util {
         });
 
     }
+    public void initOpenCVOther() {
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        WebcamName webcamName = null;
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1"); // put your camera's name here
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
+        pipeline = new SamplePipeline();
+        webcam.setPipeline(pipeline);
+
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+
+                telemetry.addLine("cameraopened");
+                webcam.startStreaming(STREAM_WIDTH, STREAM_HEIGHT, OpenCvCameraRotation.UPRIGHT);
+
+                telemetry.addData("Image Analysis:",pipeline.getAnalysisOther());
+                telemetry.update();
+                telemetry.addData("Image Analysis:",pipeline.getAnalysisOther());
+                telemetry.update();
+                telemetry.addData("Image Analysis:",pipeline.getAnalysisOther());
+                telemetry.update();
+            }
+
+            @Override
+            public void onError(int errorCode) {
+                telemetry.addData("Camera Failed","");
+                telemetry.update();
+                //webcam.stopStreaming();
+            }
+        });
+
+    }
 
     //@Override
     public void loopOpenCV() {
         telemetry.addLine("in the Loop");
         telemetry.addData("Image Analysis:",pipeline.getAnalysis());
+        telemetry.update();
+    }
+    public void loopOpenCVOther() {
+        telemetry.addLine("in the Loop");
+        telemetry.addData("Image Analysis:",pipeline.getAnalysisOther());
         telemetry.update();
     }
     String getLocation(){return pipeline.getObjectLocation();}
@@ -200,6 +239,14 @@ class SamplePipeline extends OpenCvPipeline {
         if((avg1 >avg2)&&(avg1>avg3)){objectLocation = "Left";return "Left:   "+avg1;}
         if((avg2 >avg1)&&(avg2>avg3)){objectLocation = "Center";return "Center:    "+avg2;}
         if((avg3 >avg2)&&(avg3>avg1)){objectLocation = "Right";return "Right:   "+avg3;}
+        return "ErrorInAnalysis";
+    }
+    public String getAnalysisOther() {
+        /*Determines which rectangle has the Team Object within its boundaries*/
+        if(((avg1)<17)&&(avg2<17)&&(avg3<17)){objectLocation = "Right";return "Right\n"+avg1+" \n"+avg2+"\n "+avg3+"";}
+        if(avg2>avg3){objectLocation = "Left";return "Left:   "+avg2;}
+        if(avg3>avg2){objectLocation = "Center";return "Center:    "+avg3;}
+        //if((avg3 >avg2)&&(avg3>avg1)){objectLocation = "Right";return "Right:   "+avg3;}
         return "ErrorInAnalysis";
     }
     public String getObjectLocation(){return objectLocation;}
