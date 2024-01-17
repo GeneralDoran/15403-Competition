@@ -13,14 +13,14 @@ public class ColorDetectionAuto extends ColorDetectionPractice {
         telemetry.addLine("Started");
         loopOpenCV();
         String x = getLocation();
-        if (x.equals("Right")){
-            encoderStrafe(0.2,-5,-5,10,0);
-        } else if (x.equals("Center")){
-            encoderDrive(0.2,-5,-5,10,0);
-        } else if (x.equals("Left")){
-            encoderStrafe(0.2,5,5,10,0);
+        if (x.equals("Right")) {
+            encoderStrafe(0.2, -5, -5, 10, 0);
+        } else if (x.equals("Center")) {
+            encoderDrive(0.2, -5, -5, 10, 0);
+        } else if (x.equals("Left")) {
+            encoderStrafe(0.2, 5, 5, 10, 0);
         } else {
-            encoderDrive(0.2,5,5,10,0);
+            encoderDrive(0.2, 5, 5, 10, 0);
         }
 
 
