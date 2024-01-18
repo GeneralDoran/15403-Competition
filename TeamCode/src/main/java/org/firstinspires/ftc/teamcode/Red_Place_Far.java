@@ -10,15 +10,15 @@ public class Red_Place_Far extends ColorDetectionPractice {
         waitForStart();
         telemetry.addLine("Started");
         loopOpenCVOther();
-        //String loc = getLocation();
-        String loc = "Left";
+        String loc = getLocation();
+        //String loc = "Left";
 
         if (loc.equals("Center")) { // center
             encoderDrive(DRIVE_SPEED,-17,-17,10,0);
             intakeWork(1);
             encoderDrive(DRIVE_SPEED,2.5,2.5,10,0);
             encoderStrafe(STRAFE_SPEED,10,10,10,0);
-            encoderDrive(DRIVE_SPEED,-20,-20,10,0);
+            encoderDrive(DRIVE_SPEED,-19.5,-19.5,10,0);
             encoderDrive(DRIVE_SPEED,-12.4,12.4,10,0);
             encoderDrive(DRIVE_SPEED,-69,-69,10,0);
             encoderStrafe(STRAFE_SPEED,-13,-13,10,0);
@@ -38,7 +38,7 @@ public class Red_Place_Far extends ColorDetectionPractice {
             encoderDrive(DRIVE_SPEED,-16,-16,10,0);
             encoderDrive(DRIVE_SPEED,-12.3,12.3,10,0);
             encoderDrive(DRIVE_SPEED,-59,-59,10,0);
-            encoderStrafe(STRAFE_SPEED,-17,-17,10,0);
+            encoderStrafe(STRAFE_SPEED,-17.5,-17.5,10,0);
             encoderDrive(0.1,-5,-5,10,0);
             place(50);
             sleep(1000);
