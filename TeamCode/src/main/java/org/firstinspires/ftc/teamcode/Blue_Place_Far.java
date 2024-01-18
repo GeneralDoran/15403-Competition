@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name="Far Place Red",group="Encoder")
+@Autonomous(name="Far Place Blue",group="Encoder")
 public class Blue_Place_Far extends ColorDetectionPractice {
     public void runOpMode() throws InterruptedException {
         initAuto();
