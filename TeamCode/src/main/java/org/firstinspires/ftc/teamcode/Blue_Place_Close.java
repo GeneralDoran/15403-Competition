@@ -2,14 +2,14 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Close Place Red", group = "Encoder")
+@Autonomous(name = "Close Place Blue", group = "Encoder")
 public class Blue_Place_Close extends ColorDetectionPractice {
     public void runOpMode() throws InterruptedException {
         initAuto();
-        initOpenCV();
+        initOpenCVOther();
         waitForStart();
         telemetry.addLine("Started");
-        loopOpenCV();
+        loopOpenCVOther();
         String loc = getLocation();
 
         if (loc.equals("Center")) { //center
