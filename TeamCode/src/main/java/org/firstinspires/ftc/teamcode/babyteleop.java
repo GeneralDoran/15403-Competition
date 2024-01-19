@@ -64,13 +64,13 @@ public class babyteleop extends Auto_Util {
 
             if (gamepad1.right_bumper){
                 slowamount = 0.5;}
-            else if (gamepad1.left_bumper) {
-                slowamount = 0.1;}
+           // else if (gamepad1.left_bumper) {
+              //  slowamount = 0.1;}
             else{
                 slowamount = 1;}
 
             if(gamepad2.right_bumper){
-                robot.armMotorOne.setPower(gamepad2.right_stick_y*.4 - .15);
+                robot.armMotorOne.setPower(gamepad2.right_stick_y*.1);
             } else if(gamepad1.a){
                 robot.armMotorOne.setPower(gamepad2.right_stick_y);
             } else{
@@ -99,18 +99,15 @@ public class babyteleop extends Auto_Util {
             }
 
             //FIXXXXX or check
-            if(gamepad1.x &&!changed9){
-                resetRuntime();
-                if(runtime.seconds() > 0.8){
-                    robot.armServo.setPower(1);
-                }
-                changed9 = true;
-            }else if(!gamepad1.x){
-                changed9 = false;
+            if(gamepad1.x){
+                robot.armServo.setPower(1);
+            } else if(gamepad1.y){
+                robot.armServo.setPower(-1);
+            }else{
                 robot.armServo.setPower(0);
             }
 
-            if(gamepad1.dpad_up && !changed3){
+            if(gamepad1.left_bumper && !changed3){
                 if(intakePower == 0.5){
                     intakePower = -1;
                 }else{
