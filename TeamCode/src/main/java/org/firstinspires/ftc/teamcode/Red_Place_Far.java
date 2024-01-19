@@ -54,9 +54,9 @@ public class Red_Place_Far extends ColorDetectionPractice {
             encoderDrive(DRIVE_SPEED,2,2,10,0);
             encoderStrafe(STRAFE_SPEED,-9,-9,10,0);
             encoderDrive(DRIVE_SPEED,-25,-25,10,0);
-            encoderDrive(DRIVE_SPEED,-12.3,12.3,10,0);
-            encoderDrive(DRIVE_SPEED,-54,-54,10,0);
-            encoderStrafe(STRAFE_SPEED,-12,-12,10,0);
+            encoderDrive(DRIVE_SPEED,-12.2,12.2,10,0);
+            encoderDrive(DRIVE_SPEED,-56,-56,10,0);
+            encoderStrafe(STRAFE_SPEED,-8,-8,10,0);
             encoderDrive(0.1,-5,-5,10,0);
             place(50);
             sleep(1000);

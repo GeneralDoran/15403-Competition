@@ -13,10 +13,11 @@ public class Blue_Place_Close extends ColorDetectionPractice {
         String loc = getLocation();
 
         if (loc.equals("Center")) { //center
-            encoderDrive(DRIVE_SPEED,-18,-18,10,0);
+            encoderDrive(DRIVE_SPEED,-17,-17,10,0);
             intakeWork(1);
-            encoderDrive(DRIVE_SPEED,2,2,10,0);
-            encoderDrive(DRIVE_SPEED,-12,12,10,0);
+            encoderDrive(DRIVE_SPEED,2.5,2.5,10,0);
+            encoderStrafe(STRAFE_SPEED,10,10,10,0);
+            encoderDrive(DRIVE_SPEED,-19.5,-19.5,10,0);
             encoderDrive(DRIVE_SPEED,-22,-22,10,0);
             encoderStrafe(0.1,8,8,10,0);
             encoderDrive(0.1,-2,-2,10,0);
