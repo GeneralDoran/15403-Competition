@@ -19,7 +19,7 @@ public class babyhwmap extends HardwareMapUtil {
     public DcMotor armMotorOne = null;
     public DcMotor armMotorTwo = null;
     public DcMotor Intake = null;
-    public CRServo armServo = null;
+    public Servo armServo = null;
     public Servo planeServo = null;
     public Servo pixelServo = null;
 
@@ -33,12 +33,12 @@ public class babyhwmap extends HardwareMapUtil {
         armMotorOne = HardwareInitMotor("arm_1", true);
         armMotorTwo = HardwareInitMotor("arm_2", true);
         Intake = HardwareInitMotor("intake", true);
-        armServo = hwMap.get(CRServo.class, "servo");
+        armServo = hwMap.get(Servo.class, "servo");
         planeServo = hwMap.get(Servo.class, "planeServo");
         pixelServo = hwMap.get(Servo.class, "pixelServo");
 
 
-        armServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        //armServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftfrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightfrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
