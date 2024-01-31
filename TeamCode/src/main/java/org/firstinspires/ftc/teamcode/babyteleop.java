@@ -24,7 +24,7 @@ public class babyteleop extends Auto_Util {
     static double rfPower;
     static double slowamount ;
     public double intakePower = 0.5;
-    public double pivPower = .4;
+    public double pivPower = 1;
     public double extPower = .7;
 
 //toggle variables
@@ -42,9 +42,9 @@ public class babyteleop extends Auto_Util {
     static double closed = .4;
     static double pixel_open = .3;
     //motor position variables
-    int low = 1613;
-    int med = 2420;
-    int high = 3226;
+    int low = -1613;
+    int med = -2000;
+    int high = -2600;
     int zero = 0;
     int CurrentPos = zero;
 
@@ -161,6 +161,7 @@ public class babyteleop extends Auto_Util {
                     CurrentPos = low;
                 }
                 robot.armMotorOne.setTargetPosition(CurrentPos);
+                robot.armMotorOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.armMotorOne.setPower(pivPower);
             } else if(!gamepad2.b){
                 changed1 = false;
@@ -174,6 +175,7 @@ public class babyteleop extends Auto_Util {
                     CurrentPos = zero;
                 }
                 robot.armMotorOne.setTargetPosition(CurrentPos);
+                robot.armMotorOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.armMotorOne.setPower(pivPower);
 
             } else if(!gamepad2.a){
@@ -188,6 +190,7 @@ public class babyteleop extends Auto_Util {
                     CurrentPos = med;
                 }
                 robot.armMotorOne.setTargetPosition(CurrentPos);
+                robot.armMotorOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.armMotorOne.setPower(pivPower);
 
             } else if(!gamepad2.x){
@@ -202,14 +205,15 @@ public class babyteleop extends Auto_Util {
                     CurrentPos = high;
                 }
                 robot.armMotorOne.setTargetPosition(CurrentPos);
+                robot.armMotorOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 robot.armMotorOne.setPower(pivPower);
 
             } else if(!gamepad2.x){
                 changed6 = false;
             }
             telemetry.addData("encoder value", robot.armMotorOne.getCurrentPosition());
+            telemetry.update();
 
-            robot.armMotorOne.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
 
